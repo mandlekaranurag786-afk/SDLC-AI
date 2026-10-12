@@ -268,5 +268,50 @@ def test_q5_metrics_alignment():
         assert metric.lower() in sc_sec.lower(), f"Missing {metric} in Success Criteria"
 
 
+def test_heading_text_matching_without_numbers():
+    from brd_hygiene_utils import clean_validator_leaks_from_open_items, ensure_q5_metrics_aligned
+    from deterministic_checks import check_metrics_coverage
+    from post_processor import scan_placeholders
+
+    # 1. Open items without section number 12
+    brd_unnumbered_open_items = """# BRD
+## Open Items
+- Legitimate item.
+- Success metric 'completion rate' need to be added to BRD Section 11.
+"""
+    cleaned = clean_validator_leaks_from_open_items(brd_unnumbered_open_items)
+    assert "Legitimate item." in cleaned
+    assert "need to be added" not in cleaned
+
+    # 2. Objectives and Success Criteria without section numbers 3 and 11
+    brd_unnumbered_metrics = """# BRD
+## Project Objectives
+- Initial objective
+
+## Success Criteria
+- Initial criterion
+"""
+    aligned = ensure_q5_metrics_aligned(brd_unnumbered_metrics)
+    assert "Average onboarding time: Target: to be defined" in aligned
+    # Also verify check_metrics_coverage detects them under unnumbered ## Success Criteria
+    missing = check_metrics_coverage(aligned)
+    assert len(missing) == 0
+
+    # 3. Post processor placeholder scan with unnumbered headings
+    ph_test = """## Project Objectives
+- Metric: Target: TBD
+
+## Open Items
+- Questions for team: TBD
+
+## Other Scope
+- Auth: TBD
+"""
+    issues = scan_placeholders(ph_test)
+    assert len(issues) == 1
+    assert "Line 8" in issues[0]["affected_requirement"]
+
+
+
 
 

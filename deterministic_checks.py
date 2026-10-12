@@ -429,11 +429,18 @@ def check_metrics_coverage(brd_text: str, extracted_requirements: dict[str, Any]
         "pending tasks", "satisfaction", "escalation", "scheduled automatically", "completion rate"
     ]
 
-    sec11_match = re.search(r"## 11\. Success Criteria.*?(?=##|\Z)", brd_text, re.DOTALL | re.IGNORECASE)
+    sec11_match = re.search(r"##+\s*(?:\d+[\.\)]\s*)?Success Criteria.*?(?=\n##|\Z)", brd_text, re.DOTALL | re.IGNORECASE)
     sec11_text = sec11_match.group(0) if sec11_match else brd_text
 
+    from feature_flags import ENABLE_VALIDATOR_FP_FIXES
+
     for m in metrics:
-        if not re.search(rf"\b{re.escape(m)}\b", sec11_text, re.IGNORECASE):
+        if ENABLE_VALIDATOR_FP_FIXES:
+            metric_pattern = rf"\b{re.escape(m)}(?:s|es)?\b"
+        else:
+            metric_pattern = rf"\b{re.escape(m)}\b"
+
+        if not re.search(metric_pattern, sec11_text, re.IGNORECASE):
             issues.append({
                 "type": "missing_metric_coverage",
                 "severity": "HIGH",

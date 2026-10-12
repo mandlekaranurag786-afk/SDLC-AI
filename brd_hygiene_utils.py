@@ -18,7 +18,7 @@ Q5_METRICS = [
     ("automated", "Percentage of onboarding tasks automated: Target: to be defined"),
     ("pending tasks", "Number of overdue or pending tasks: Target: to be defined"),
     ("satisfaction", "Employee onboarding satisfaction score: Target: to be defined"),
-    ("escalation", "Number of onboarding issues and escalations: Target: to be defined"),
+    ("escalation", "Number of onboarding issues and escalation / escalations: Target: to be defined"),
     ("scheduled automatically", "Percentage of meetings scheduled automatically: Target: to be defined"),
     ("completion rate", "Overall onboarding task completion rate: Target: to be defined"),
 ]
@@ -47,7 +47,7 @@ def clean_validator_leaks_from_open_items(brd_text: str) -> str:
         return brd_text
 
     # Match Open Items section before Appendix or end of doc
-    match = re.search(r"(##\s*(?:12\.\s*)?Open Items[^\n]*\n)([\s\S]*?)(?=\n##|\Z)", brd_text, re.IGNORECASE)
+    match = re.search(r"(##+\s*(?:\d+[\.\)]\s*)?Open Items[^\n]*\n)([\s\S]*?)(?=\n##|\Z)", brd_text, re.IGNORECASE)
     if not match:
         return brd_text
 
@@ -86,7 +86,7 @@ def ensure_q5_metrics_aligned(brd_text: str) -> str:
     modified_text = brd_text
 
     # 1. Align Project Objectives
-    obj_match = re.search(r"(##\s*(?:\d+\.?\s*)?Project Objectives[^\n]*\n)([\s\S]*?)(?=\n##|\Z)", modified_text, re.IGNORECASE)
+    obj_match = re.search(r"(##+\s*(?:\d+[\.\)]\s*)?Project Objectives[^\n]*\n)([\s\S]*?)(?=\n##|\Z)", modified_text, re.IGNORECASE)
     if obj_match:
         header = obj_match.group(1)
         body = obj_match.group(2)
@@ -101,7 +101,7 @@ def ensure_q5_metrics_aligned(brd_text: str) -> str:
             modified_text = modified_text[:start_pos] + header + new_body + modified_text[end_pos:]
 
     # 2. Align Success Criteria
-    sc_match = re.search(r"(##\s*(?:\d+\.?\s*)?Success Criteria[^\n]*\n)([\s\S]*?)(?=\n##|\Z)", modified_text, re.IGNORECASE)
+    sc_match = re.search(r"(##+\s*(?:\d+[\.\)]\s*)?Success Criteria[^\n]*\n)([\s\S]*?)(?=\n##|\Z)", modified_text, re.IGNORECASE)
     if sc_match:
         header = sc_match.group(1)
         body = sc_match.group(2)

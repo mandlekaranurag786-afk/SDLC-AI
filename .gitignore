@@ -5,3 +5,12 @@ logs/
 __pycache__/
 .pytest_cache/
 generated_docs/
+.env
+.env.*
+!.env.example
+.venv*/
+__pycache__/
+*.pyc
+*.db
+qa/logs/
+.pytest_cache/

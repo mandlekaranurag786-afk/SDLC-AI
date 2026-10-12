@@ -48,7 +48,7 @@ def scan_placeholders(markdown_content: str, doc_name: str = "Document") -> list
         stripped = line.strip()
         if stripped.startswith("#"):
             current_heading = stripped
-            if "Appendix: Open Items" in stripped or "Open Items for Review" in stripped:
+            if "open items" in stripped.lower():
                 in_open_items = True
                 continue
             else:

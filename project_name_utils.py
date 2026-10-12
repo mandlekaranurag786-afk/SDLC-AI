@@ -1,9 +1,10 @@
 import re
+from feature_flags import ENABLE_TITLE_SANITY
 
 STOPWORDS = {
     "we", "are", "the", "a", "an", "our", "organizations", "organization",
     "company", "i", "you", "they", "my", "is", "need", "want", "require",
-    "build", "create", "develop"
+    "build", "create", "develop", "spend", "significant"
 }
 
 def format_title_preserve_acronyms(text: str) -> str:
@@ -22,25 +23,47 @@ def format_title_preserve_acronyms(text: str) -> str:
 def clean_and_validate_project_name(candidate: str | None) -> str | None:
     """
     Validates candidate project name string:
-    - Strips whitespace & punctuation
+    - Strips whitespace, markdown symbols, and punctuation
     - Returns None if empty or starts with stopword
-    - Returns formatted title case string max 6 words
+    - Enforces 2-8 words sanity
+    - Returns formatted title case string
     """
     if not candidate or not isinstance(candidate, str):
         return None
 
     cleaned = candidate.strip()
+    # Strip markdown headers, bold, quotes
+    cleaned = re.sub(r"^[#*_\"'\s]+|[#*_\"'\s]+$", "", cleaned).strip()
     words = cleaned.split()
     if not words:
         return None
 
-    first_word_lower = words[0].lower().strip(".,;:!?\"'()")
-    if first_word_lower in STOPWORDS:
-        return None
+    if ENABLE_TITLE_SANITY:
+        # Must be 2 to 8 words
+        if not (2 <= len(words) <= 8):
+            return None
 
-    # Keep at most 6 words
-    title_words = words[:6]
-    title_str = " ".join(title_words).strip(" .,;:!?\"'()")
+        first_word_lower = words[0].lower().strip(".,;:!?\"'()[]{}#")
+        if first_word_lower in STOPWORDS:
+            return None
+
+        # Check trailing word - trim trailing conjunctions/prepositions
+        trailing_word_lower = words[-1].lower().strip(".,;:!?\"'()[]{}#")
+        if trailing_word_lower in {"and", "or", "with", "for", "to", "in", "of", "on", "at", "by", "the", "a", "an"}:
+            if len(words) > 2:
+                words = words[:-1]
+            else:
+                return None
+
+        if " ".join(words).lower() == "untitled project":
+            return None
+    else:
+        first_word_lower = words[0].lower().strip(".,;:!?\"'()")
+        if first_word_lower in STOPWORDS:
+            return None
+        words = words[:6]
+
+    title_str = " ".join(words).strip(" .,;:!?\"'()")
     if not title_str or len(title_str) < 3:
         return None
 

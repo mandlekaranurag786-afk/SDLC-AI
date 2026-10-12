@@ -115,11 +115,19 @@ def recompute_epics_arithmetic(epics_md: str, velocity_per_sprint: int = VELOCIT
     return epics_md
 
 
-def recompute_estimation_timeline(estimation_md: str, epics_md: str, constraint_weeks: int | None = None) -> str:
+def recompute_estimation_timeline(
+    estimation_md: str,
+    epics_md: str,
+    constraint_weeks: int | None = None,
+    frd_md: str = "",
+) -> str:
     """
     Overwrites Sprint Breakdown table, Phase Summary, Total Timeline, Team Size,
-    and Role Working Days in estimation_md with values computed deterministically from Epics story points.
+    and Role Working Days in estimation_md with values computed deterministically from Epics story points
+    and actual FR IDs parsed from the FRD.
     """
+    from feature_flags import ENABLE_ESTIMATION_FR_ALIGNMENT
+
     # Parse total points from epics_md
     sp_match = re.search(r"\*\*Total Story Points:\*\*\s*(\d+)", epics_md)
     total_sp = int(sp_match.group(1)) if sp_match else 45
@@ -131,8 +139,31 @@ def recompute_estimation_timeline(estimation_md: str, epics_md: str, constraint_
 
     # 1. Overwrite Sprint Breakdown Table (2.1)
     sprint_table_rows = ["| Sprint | Duration | Focus Area | FRs Covered |", "|--------|----------|------------|-------------|"]
+
+    actual_fr_ids: list[str] = []
+    if ENABLE_ESTIMATION_FR_ALIGNMENT:
+        raw_ids = set(re.findall(r"\bFR-\d+\b", frd_md, re.IGNORECASE))
+        if not raw_ids:
+            raw_ids = set(re.findall(r"\bFR-\d+\b", epics_md, re.IGNORECASE))
+        actual_fr_ids = sorted(list(raw_ids), key=lambda x: int(x.split("-")[1]))
+
     for i in range(1, sprints + 1):
-        sprint_table_rows.append(f"| Sprint {i} | 2 weeks | Phase {i} Implementation | FR-{(i-1)*3+1:03d} to FR-{i*3:03d} |")
+        if ENABLE_ESTIMATION_FR_ALIGNMENT and actual_fr_ids:
+            # Distribute actual FR IDs across sprints
+            count_per_sprint = math.ceil(len(actual_fr_ids) / sprints)
+            start_idx = (i - 1) * count_per_sprint
+            end_idx = min(i * count_per_sprint, len(actual_fr_ids))
+            chunk = actual_fr_ids[start_idx:end_idx]
+            if len(chunk) == 1:
+                fr_coverage = chunk[0]
+            elif len(chunk) > 1:
+                fr_coverage = f"{chunk[0]} to {chunk[-1]}"
+            else:
+                fr_coverage = "Hardening & Integration"
+        else:
+            fr_coverage = f"FR-{(i-1)*3+1:03d} to FR-{i*3:03d}"
+
+        sprint_table_rows.append(f"| Sprint {i} | 2 weeks | Phase {i} Implementation | {fr_coverage} |")
     sprint_table_str = "\n".join(sprint_table_rows)
 
     estimation_md = re.sub(

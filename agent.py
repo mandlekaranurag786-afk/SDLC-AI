@@ -429,7 +429,11 @@ def refine_documents(state: RequirementState) -> RequirementState:
     # truncated mid-response and fails to parse on every retry.
     refined = call_llm(prompt, expect_json=True, max_tokens=12000)
     if refined.get("brd"):
-        state["brd_draft"] = str(refined["brd"])
+        brd_draft = str(refined["brd"])
+        from brd_hygiene_utils import clean_validator_leaks_from_open_items, ensure_q5_metrics_aligned
+        brd_draft = clean_validator_leaks_from_open_items(brd_draft)
+        brd_draft = ensure_q5_metrics_aligned(brd_draft)
+        state["brd_draft"] = brd_draft
     if refined.get("frd"):
         state["frd_draft"] = str(refined["frd"])
     state["refinement_iterations"] = int(state.get("refinement_iterations") or 0) + 1
@@ -440,10 +444,30 @@ def refine_documents(state: RequirementState) -> RequirementState:
 def _run_parallel_exports(state: RequirementState) -> RequirementState:
     session_id = state["session_id"]
     problem_statement = state["problem_statement"]
-    project_name = derive_project_name(problem_statement)
+    project_name = derive_project_name(
+        problem_statement,
+        user_provided_name=state.get("project_name"),
+        extracted_name=state.get("extracted_project_name"),
+    )
     brd_draft = state.get("brd_draft") or ""
     frd_draft = state.get("frd_draft") or ""
     epics_draft = state.get("epics_stories_draft") or ""
+
+    # Apply deterministic BRD hygiene & metric alignment (Fix B.g & B.h)
+    from brd_hygiene_utils import clean_validator_leaks_from_open_items, ensure_q5_metrics_aligned
+    if brd_draft:
+        brd_draft = clean_validator_leaks_from_open_items(brd_draft)
+        brd_draft = ensure_q5_metrics_aligned(brd_draft)
+        state["brd_draft"] = brd_draft
+
+    # Apply deterministic traceability fixes to state before export (Fix B.a & B.b)
+    from traceability_utils import renumber_and_link_epics_stories
+    if epics_draft:
+        epics_draft, findings = renumber_and_link_epics_stories(epics_draft, frd_draft)
+        state["epics_stories_draft"] = epics_draft
+        if findings:
+            state.setdefault("traceability_findings", []).extend(findings)
+
     validation_report = state.get("validation_report") or {}
     validation_report_for_export = validation_report if should_export_with_notes(state) else None
     results: dict[str, Any] = {}
@@ -479,7 +503,8 @@ def _run_parallel_exports(state: RequirementState) -> RequirementState:
 
         estimation_md = recompute_estimation_timeline(
             estimation_md,
-            epics_draft
+            epics_draft,
+            frd_md=frd_draft,
         )
         estimation_md = recompute_estimation_cost(
             estimation_md,

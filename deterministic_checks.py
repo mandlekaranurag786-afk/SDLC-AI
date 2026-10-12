@@ -199,15 +199,27 @@ def check_story_fr_traceability(epics_text: str) -> list[dict[str, Any]]:
 
 
 def check_fr_brd_traceability(frd_text: str) -> list[dict[str, Any]]:
+    from feature_flags import ENABLE_VALIDATOR_FP_FIXES
+
     issues = []
     if not frd_text:
         return issues
 
-    fr_blocks = re.findall(r"(FR-\d+[\s\S]*?)(?=(?:FR-\d+|$))", frd_text, flags=re.IGNORECASE)
+    if ENABLE_VALIDATOR_FP_FIXES:
+        raw_blocks = re.split(r"(?=(?:\n|^)##+\s*FR-\d+|(?:\n|^)FR-\d+[:\s])", frd_text)
+        fr_blocks = [b for b in raw_blocks if re.search(r"FR-\d+", b)]
+    else:
+        fr_blocks = re.findall(r"(FR-\d+[\s\S]*?)(?=(?:FR-\d+|$))", frd_text, flags=re.IGNORECASE)
+
     for block in fr_blocks:
         fr_match = re.search(r"FR-\d+", block)
         fr_id = fr_match.group(0) if fr_match else "Functional Requirement"
-        if not re.search(r"(?:BRD|BRD Section|BR-\d+)\s*[\d.]*", block, flags=re.IGNORECASE):
+        if ENABLE_VALIDATOR_FP_FIXES:
+            has_trace = bool(re.search(r"(?:Maps to BRD Section|BRD Mapping|BRD Section|BR-\d+)\s*[:\s]*[\d.]+", block, flags=re.IGNORECASE))
+        else:
+            has_trace = bool(re.search(r"(?:BRD|BRD Section|BR-\d+)\s*[\d.]*", block, flags=re.IGNORECASE))
+
+        if not has_trace:
             issues.append({
                 "type": "traceability_gap",
                 "severity": "HIGH",
@@ -227,6 +239,8 @@ def check_integration_technical_details(frd_text: str, extracted_requirements: d
     3. Data Exchanged
     4. Failure Handling
     """
+    from feature_flags import ENABLE_VALIDATOR_FP_FIXES
+
     issues = []
     if not frd_text:
         return issues
@@ -239,7 +253,11 @@ def check_integration_technical_details(frd_text: str, extracted_requirements: d
             if isinstance(val, list):
                 integrations = val
             elif isinstance(val, str):
-                integrations = [s.strip() for s in val.split(",") if s.strip()]
+                if ENABLE_VALIDATOR_FP_FIXES:
+                    raw_items = re.split(r"[\n\r]+|(?:\s*,\s*)|(?:\s*;\s*)", val)
+                    integrations = [re.sub(r"^[\s*\-•\d.]+", "", it).strip() for it in raw_items if re.sub(r"^[\s*\-•\d.]+", "", it).strip()]
+                else:
+                    integrations = [s.strip() for s in val.split(",") if s.strip()]
         elif isinstance(raw_int, list):
             integrations = raw_int
 
@@ -266,7 +284,10 @@ def check_integration_technical_details(frd_text: str, extracted_requirements: d
         # Find FR blocks that name this integration
         matching_frs = []
         for block in fr_blocks:
-            if block.strip().startswith("## FR-") and re.search(rf"\b{re.escape(int_clean)}\b", block, re.IGNORECASE):
+            if not block.strip().startswith("## FR-"):
+                continue
+            subparts = [p.strip() for p in re.split(r"[/,]", int_clean) if len(p.strip()) > 2]
+            if re.search(rf"\b{re.escape(int_clean)}\b", block, re.IGNORECASE) or (ENABLE_VALIDATOR_FP_FIXES and any(re.search(rf"\b{re.escape(p)}\b", block, re.IGNORECASE) for p in subparts)):
                 matching_frs.append(block)
 
         if not matching_frs:
@@ -299,6 +320,8 @@ def check_integration_technical_details(frd_text: str, extracted_requirements: d
 
 
 def check_stakeholder_coverage(brd_text: str, frd_text: str, extracted_requirements: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+    from feature_flags import ENABLE_VALIDATOR_FP_FIXES
+
     issues = []
     if not brd_text or not frd_text:
         return issues
@@ -318,8 +341,14 @@ def check_stakeholder_coverage(brd_text: str, frd_text: str, extracted_requireme
         if not r_clean:
             continue
 
+        if ENABLE_VALIDATOR_FP_FIXES:
+            base_r = re.sub(r"(?:s|es)$", "", r_clean, flags=re.IGNORECASE)
+            role_pattern = rf"\b{re.escape(base_r)}(?:s|es)?\b"
+        else:
+            role_pattern = rf"\b{re.escape(r_clean)}\b"
+
         # Check BRD mention
-        if not re.search(rf"\b{re.escape(r_clean)}\b", brd_text, re.IGNORECASE):
+        if not re.search(role_pattern, brd_text, re.IGNORECASE):
             issues.append({
                 "type": "missing_stakeholder_coverage",
                 "severity": "HIGH",
@@ -329,7 +358,7 @@ def check_stakeholder_coverage(brd_text: str, frd_text: str, extracted_requireme
             })
 
         # Check FRD Actors mention
-        if not re.search(rf"\b{re.escape(r_clean)}\b", frd_text, re.IGNORECASE):
+        if not re.search(role_pattern, frd_text, re.IGNORECASE):
             issues.append({
                 "type": "missing_stakeholder_coverage",
                 "severity": "HIGH",

@@ -35,21 +35,32 @@ def scan_placeholders(markdown_content: str, doc_name: str = "Document") -> list
     """
     Scans markdown text for placeholder tokens (XX, TBD, [insert, <insert, TODO).
     Ignores lines inside 'Appendix: Open Items'.
+    Allows intentional 'Target: TBD / to be defined' only under 'Project Objectives' and 'Success Criteria'.
     Returns list of validation issue dicts with severity HIGH.
     """
+    from feature_flags import ENABLE_VALIDATOR_FP_FIXES
+
     issues = []
     in_open_items = False
+    current_heading = ""
 
     for line_idx, line in enumerate(markdown_content.splitlines(), start=1):
         stripped = line.strip()
-        if "Appendix: Open Items" in stripped or "Open Items for Review" in stripped:
-            in_open_items = True
-            continue
-        if in_open_items and stripped.startswith("#"):
-            in_open_items = False
+        if stripped.startswith("#"):
+            current_heading = stripped
+            if "Appendix: Open Items" in stripped or "Open Items for Review" in stripped:
+                in_open_items = True
+                continue
+            else:
+                in_open_items = False
 
         if in_open_items:
             continue
+
+        if ENABLE_VALIDATOR_FP_FIXES:
+            is_objectives_or_success = any(h in current_heading.lower() for h in ["objectives", "success criteria"])
+            if is_objectives_or_success and re.search(r"Target:\s*(?:TBD|to be defined)", line, re.IGNORECASE):
+                continue
 
         for pattern, msg in PLACEHOLDER_PATTERNS:
             if re.search(pattern, line, flags=re.IGNORECASE):

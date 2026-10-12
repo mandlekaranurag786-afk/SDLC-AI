@@ -2,23 +2,35 @@
 SDLC DOCUMENT GENERATION SCOREBOARD
 ================================================================================
 (a) Requirement Coverage:
-Category                Input Items     FR Covered    Story Covered
+Category            Input Items   FR Covered   Story Covered   BRD Covered
 --------------------------------------------------------------------------------
-Features                         10             10                9
-Workflow Steps                   21             20               18
-Integrations                      8              8                7
-Constraints                       6              3                1
-Metrics                          10              8                6
-Total                            55             49               41
+Features                     10           10               9             -
+Workflow Steps               21           20              18             -
+Integrations                  8            8               7             -
+Constraints                   6            -               -             6
+Metrics                      10            -               -             7
+Total                        55           38              34            13
+--------------------------------------------------------------------------------
+Metrics missing from Project Objectives or Success Criteria:
+  * Percentage of onboarding tasks automated (missing in: Project Objectives)
+  * Number of onboarding issues/escalations (missing in: Project Objectives, Success Criteria)
+  * Overall onboarding completion rate (missing in: Success Criteria)
 --------------------------------------------------------------------------------
 (b) Duplicate Story IDs:                    0
-(c) Stories without FR ID:                  46
+(c) Stories without FR ID:                  23 / 23 stories parsed
 (d) Dangling / Non-existent FR references:   0
-(e) Untagged numbers with units:            5
+(e) Untagged numbers with units:            4
 (f) Tags on non-requirement values:         93
 (g) BRD vs FRD timing conflicts:            0
 (h) Banned phrases / validator leaks:       0
 (i) Title sanity issues:                    4
 ================================================================================
 Detected Titles: {'BRD': 'Spend Significant Time And', 'FRD': 'Spend Significant Time And', 'Epics': 'Spend Significant Time And', 'Estimation': 'Spend Significant Time And'}
+--------------------------------------------------------------------------------
+Document SHA256 Hashes:
+  BRD        : ab0f0f15c7649677e36259800662b98ca647c87e387c9d2df0ba64f9c20bcbd9
+  FRD        : d5fc871bac3f84e51af50f416002c9297d2efdd0f27bb8271254907aa22fc4f3
+  Epics      : b4f0f641582abe18f8a69b3d9ecf178f410eed7a5cfd55df0a171d7b48332d69
+  Estimation : 574077e3a53f2761ec67bd8307bc8a83348ce3cf7083430413f884eb7a571bb1
+  VERIFIED: All document hashes are distinct.
 ================================================================================

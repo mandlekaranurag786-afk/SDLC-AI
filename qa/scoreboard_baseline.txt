@@ -1,0 +1,24 @@
+================================================================================
+SDLC DOCUMENT GENERATION SCOREBOARD
+================================================================================
+(a) Requirement Coverage:
+Category                Input Items     FR Covered    Story Covered
+--------------------------------------------------------------------------------
+Features                         10             10                9
+Workflow Steps                   21             20               18
+Integrations                      8              8                7
+Constraints                       6              3                1
+Metrics                          10              8                6
+Total                            55             49               41
+--------------------------------------------------------------------------------
+(b) Duplicate Story IDs:                    0
+(c) Stories without FR ID:                  46
+(d) Dangling / Non-existent FR references:   0
+(e) Untagged numbers with units:            5
+(f) Tags on non-requirement values:         93
+(g) BRD vs FRD timing conflicts:            0
+(h) Banned phrases / validator leaks:       0
+(i) Title sanity issues:                    4
+================================================================================
+Detected Titles: {'BRD': 'Spend Significant Time And', 'FRD': 'Spend Significant Time And', 'Epics': 'Spend Significant Time And', 'Estimation': 'Spend Significant Time And'}
+================================================================================

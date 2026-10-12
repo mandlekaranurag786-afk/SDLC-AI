@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment System Wireframe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F9FAFB;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1F3864;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #2563EB;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            padding: 20px;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #111827;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #111827;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #E5E7EB;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #F1F5F9;
+        }
+        .button {
+            background-color: #2563EB;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #1F3864;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        SDLC AI - Auto-Generated Prototype Wireframe | For demonstration purposes only
+    </header>
+    <nav>
+        <a href="#automated-interview-scheduling" onclick="showScreen('automated-interview-scheduling')">Automated Interview Scheduling</a>
+        <a href="#associate-matching" onclick="showScreen('associate-matching')">Associate Matching to Job Descriptions</a>
+        <a href="#track-interview-outcomes" onclick="showScreen('track-interview-outcomes')">Track Interview Outcomes</a>
+        <a href="#post-interview-response" onclick="showScreen('post-interview-response')">Post-Interview Response Form</a>
+        <a href="#client-feedback" onclick="showScreen('client-feedback')">Client Feedback Collection Portal</a>
+        <a href="#analyze-feedback" onclick="showScreen('analyze-feedback')">Analyze Client Feedback</a>
+    </nav>
+    <div class="container">
+        <div id="automated-interview-scheduling" class="card">
+            <h2>Automated Interview Scheduling</h2>
+            <form>
+                <label for="job-description-id">Job Description ID</label>
+                <input type="text" id="job-description-id" placeholder="Enter Job Description ID">
+                <label for="associate-ids">Selected Associate IDs</label>
+                <input type="text" id="associate-ids" placeholder="Enter Associate IDs">
+                <label for="client-id">Client ID</label>
+                <input type="text" id="client-id" placeholder="Enter Client ID">
+                <label for="preferred-time-slots">Preferred Interview Time Slots</label>
+                <input type="text" id="preferred-time-slots" placeholder="Enter Time Slots">
+                <button type="button" class="button">Schedule</button>
+            </form>
+        </div>
+        <div id="associate-matching" class="card" style="display:none;">
+            <h2>Associate Matching to Job Descriptions</h2>
+            <form>
+                <label for="job-description-id-matching">Job Description ID</label>
+                <input type="text" id="job-description-id-matching" placeholder="Enter Job Description ID">
+                <button type="button" class="button">Continue</button>
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ranked List Of Associates</th>
+                        <th>Job Description ID</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Associate A</td>
+                        <td>JD-001</td>
+                        <td>Available</td>
+                    </tr>
+                    <tr>
+                        <td>Associate B</td>
+                        <td>JD-001</td>
+                        <td>Available</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="track-interview-outcomes" class="card" style="display:none;">
+            <h2>Track Interview Outcomes</h2>
+            <form>
+                <label for="interview-id">Interview ID</label>
+                <input type="text" id="interview-id" placeholder="Enter Interview ID">
+                <label for="outcome-status">Outcome Status</label>
+                <select id="outcome-status">
+                    <option value="selected">Selected</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="on-hold">On Hold</option>
+                    <option value="awaiting-feedback">Awaiting Feedback</option>
+                </select>
+                <button type="button" class="button">Continue</button>
+            </form>
+        </div>
+        <div id="post-interview-response" class="card" style="display:none;">
+            <h2>Post-Interview Response Form</h2>
+            <form>
+                <label for="interview-id-response">Interview ID</label>
+                <input type="text" id="interview-id-response" placeholder="Enter Interview ID">
+                <label for="associate-id-response">Associate ID</label>
+                <input type="text" id="associate-id-response" placeholder="Enter Associate ID">
+                <button type="button" class="button">Submit</button>
+            </form>
+        </div>
+        <div id="client-feedback" class="card" style="display:none;">
+            <h2>Client Feedback Collection Portal</h2>
+            <form>
+                <label for="feedback-details">Feedback Details</label>
+                <textarea id="feedback-details" rows="4" placeholder="Enter your feedback here..."></textarea>
+                <button type="button" class="button">Submit</button>
+            </form>
+        </div>
+        <div id="analyze-feedback" class="card" style="display:none;">
+            <h2>Analyze Client Feedback</h2>
+            <form>
+                <label for="feedback-data">Feedback Data</label>
+                <input type="text" id="feedback-data" placeholder="Enter Feedback Data">
+                <button type="button" class="button">Generate</button>
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Analysis Reports</th>
+                        <th>Feedback</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Report 1</td>
+                        <td>Positive Feedback</td>
+                        <td>Reviewed</td>
+                    </tr>
+                    <tr>
+                        <td>Report 2</td>
+                        <td>Negative Feedback</td>
+                        <td>Pending</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function showScreen(screenId) {
+            const screens = ['automated-interview-scheduling', 'associate-matching', 'track-interview-outcomes', 'post-interview-response', 'client-feedback', 'analyze-feedback'];
+            screens.forEach(screen => {
+                document.getElementById(screen).style.display = screen === screenId ? 'block' : 'none';
+            });
+        }
+        // Show the first screen by default
+        showScreen('automated-interview-scheduling');
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding Management System Prototype</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F9FAFB;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1F3864;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #2563EB;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            padding: 20px;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #111827;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+        }
+        .button {
+            background-color: #2563EB;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            border: 1px solid #E5E7EB;
+            padding: 10px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #F1F5F9;
+        }
+        .widget {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        SDLC AI - Auto-Generated Prototype Wireframe | For demonstration purposes only
+    </header>
+    <nav>
+        <a href="#reminders" onclick="showScreen('reminders')">Automated Reminders</a>
+        <a href="#document-upload" onclick="showScreen('document-upload')">Document Upload</a>
+        <a href="#onboarding-status" onclick="showScreen('onboarding-status')">Onboarding Status</a>
+        <a href="#analytics-reports" onclick="showScreen('analytics-reports')">Analytics & Reports</a>
+    </nav>
+    <div class="container">
+        <div id="reminders" class="screen">
+            <div class="card">
+                <h2>Automated Reminders and Notifications</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="task-deadlines">Task Deadlines:</label>
+                        <input type="text" id="task-deadlines" placeholder="Enter task deadlines">
+                    </div>
+                    <div class="form-group">
+                        <label for="stakeholders">Assigned Stakeholders:</label>
+                        <input type="text" id="stakeholders" placeholder="Enter stakeholders">
+                    </div>
+                    <button type="button" class="button">Schedule</button>
+                </form>
+            </div>
+        </div>
+        <div id="document-upload" class="screen" style="display:none;">
+            <div class="card">
+                <h2>Document Upload, Verification, and E-Signature</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="uploaded-documents">Upload Documents:</label>
+                        <input type="file" id="uploaded-documents">
+                    </div>
+                    <button type="button" class="button">Upload</button>
+                </form>
+            </div>
+        </div>
+        <div id="onboarding-status" class="screen" style="display:none;">
+            <div class="card">
+                <h2>Employee Onboarding Status Tracking</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Onboarding Status Dashboard</th>
+                            <th>Task Completion</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Task 1</td>
+                            <td>Completed</td>
+                            <td><button class="button">Assign</button></td>
+                        </tr>
+                        <tr>
+                            <td>Task 2</td>
+                            <td>Pending</td>
+                            <td><button class="button">Assign</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="analytics-reports" class="screen" style="display:none;">
+            <div class="card">
+                <h2>Onboarding Analytics and Reports</h2>
+                <div class="widget">
+                    <h3>Summary Metrics</h3>
+                    <p>Placeholder for summary metrics.</p>
+                </div>
+                <div class="widget">
+                    <h3>Status Breakdown</h3>
+                    <p>Placeholder for status breakdown.</p>
+                </div>
+                <button type="button" class="button">Generate</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showScreen(screenId) {
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => {
+                screen.style.display = 'none';
+            });
+            document.getElementById(screenId).style.display = 'block';
+        }
+        // Show the first screen by default
+        showScreen('reminders');
+    </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDLC AI - Auto-Generated Prototype Wireframe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F9FAFB;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1F3864;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #2563EB;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            padding: 20px;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #111827;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #111827;
+        }
+        input[type="file"], input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #E5E7EB;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #F3F4F6;
+        }
+        .button {
+            background-color: #2563EB;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #1F3864;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        SDLC AI - Auto-Generated Prototype Wireframe | For demonstration purposes only
+    </header>
+    <nav>
+        <a href="#" onclick="showScreen('documentUpload')">Document Upload</a>
+        <a href="#" onclick="showScreen('analyticsDashboard')">Analytics Dashboard</a>
+        <a href="#" onclick="showScreen('reviewExtractedData')">Review of Extracted Data</a>
+    </nav>
+    <div class="container">
+        <div id="documentUpload" class="card">
+            <h2>Document Upload</h2>
+            <form>
+                <label for="uploadFile">Upload PDF or Scanned Image:</label>
+                <input type="file" id="uploadFile" accept=".pdf, .jpg, .jpeg, .png">
+                <input type="submit" value="Upload" class="button">
+            </form>
+        </div>
+        <div id="analyticsDashboard" class="card hidden">
+            <h2>Analytics Dashboard</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Visual Analytics And Performance Metrics</th>
+                        <th>Historical On Extraction Activities</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Metric 1</td>
+                        <td>Data 1</td>
+                        <td><button class="button">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>Metric 2</td>
+                        <td>Data 2</td>
+                        <td><button class="button">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="reviewExtractedData" class="card hidden">
+            <h2>Review of Extracted Data</h2>
+            <form>
+                <label for="validatedData">Validated Extracted Data:</label>
+                <input type="text" id="validatedData" placeholder="Enter validated data here...">
+                <input type="submit" value="Approve" class="button">
+            </form>
+        </div>
+    </div>
+    <script>
+        function showScreen(screenId) {
+            const screens = ['documentUpload', 'analyticsDashboard', 'reviewExtractedData'];
+            screens.forEach(screen => {
+                document.getElementById(screen).classList.add('hidden');
+            });
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+        // Show the Document Upload screen by default
+        showScreen('documentUpload');
+    </script>
+</body>
+</html>

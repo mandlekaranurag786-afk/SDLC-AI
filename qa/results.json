@@ -1,0 +1,321 @@
+{
+  "phase_0": {
+    "status": "completed"
+  },
+  "phase_1": {
+    "pytest": "76 passed",
+    "dev-secret-key": "Not found in production code",
+    "startup_without_env_var": "Started because .env loading can supply it (load_dotenv() in main.py)",
+    "requirements_missing": [
+      "pytest"
+    ]
+  },
+  "phase_2": {
+    "tests": [
+      {
+        "ID": "T-API-01",
+        "Desc": "No key",
+        "Expected": "401",
+        "Actual": 401,
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-02",
+        "Desc": "Wrong key",
+        "Expected": "401",
+        "Actual": 401,
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-03",
+        "Desc": "Malformed header",
+        "Expected": "401",
+        "Actual": 401,
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-04",
+        "Desc": "401 detail safe",
+        "Expected": "No config revealed",
+        "Actual": "Authentication required",
+        "PASS": "PASS",
+        "Evidence": "Authentication required"
+      },
+      {
+        "ID": "T-API-HEALTH",
+        "Desc": "Public Health",
+        "Expected": "200",
+        "Actual": 200,
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-05",
+        "Desc": "Correct Bearer",
+        "Expected": "200",
+        "Actual": 200,
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-06",
+        "Desc": "Correct X-API-Key",
+        "Expected": "200",
+        "Actual": 200,
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-07",
+        "Desc": "Ownership Isolation",
+        "Expected": "Untestable",
+        "Actual": "Untestable",
+        "PASS": "PASS",
+        "Evidence": "Only one API_KEY config present"
+      },
+      {
+        "ID": "T-API-08",
+        "Desc": "Empty string",
+        "Expected": "4xx",
+        "Actual": 422,
+        "PASS": "PASS",
+        "Evidence": "{\"detail\":[{\"type\":\"string_too_short\",\"loc\":[\"body\",\"problem_statement\"],\"msg\":\"String should have at least 1 character\",\"input\":\"\",\"ctx\":{\"min_length\":1}}]}"
+      },
+      {
+        "ID": "T-API-09",
+        "Desc": "Under 12 words",
+        "Expected": "400",
+        "Actual": 400,
+        "PASS": "PASS",
+        "Evidence": "{\"detail\":\"Problem statement is too vague. Please provide at least 2-3 sentences with business objective and primary users.\"}"
+      },
+      {
+        "ID": "T-API-10",
+        "Desc": "Very long text",
+        "Expected": "400 or 413",
+        "Actual": 200,
+        "PASS": "FAIL",
+        "Evidence": "Safe handling: 200"
+      },
+      {
+        "ID": "T-API-11",
+        "Desc": "HTML/script",
+        "Expected": "Handled safely without error 500",
+        "Actual": 200,
+        "PASS": "PASS",
+        "Evidence": "{\"session_id\":\"26bdee4b-a994-4c08-b26e-711e26c49bac\",\"status\":\"asking_questions\",\"next_action\":\"answer_questions\",\"questions\":[{\"id\":\"Q1\",\"field\":\"business_objective\",\"question\":\"What is the primary business objective you aim to achieve with this project?\",\"category\":\"business\"},{\"id\":\"Q2\",\"field\":\"current_process\",\"question\":\"Are there any future-state workflow steps or process changes that the new solution must support beyond the process already described?\",\"category\":\"current_process\"},{\"id\":\"Q3\",\"field\":\"pain_points\",\"question\":\"What specific challenges or pain points do you expect this new system to address?\",\"category\":\"pain_points\"},{\"id\":\"Q4\",\"field\":\"stakeholders\",\"question\":\"Who are the key stakeholders involved in this project, and what roles will they play?\",\"category\":\"stakeholders\"},{\"id\":\"Q5\",\"field\":\"functional_features\",\"question\":\"What specific functional features do you envision the new system should include?\",\"category\":\"features\"},{\"id\":\"Q6\",\"field\":\"user_workflows\",\"question\":\"What are the desired user workflows that the new system should support?\",\"category\":\"workflows\"},{\"id\":\"Q7\",\"field\":\"integrations\",\"question\":\"What external systems should this application integrate with?\",\"category\":\"integrations\"},{\"id\":\"Q8\",\"field\":\"constraints\",\"question\":\"Are there any specific constraints or limitations we should be aware of while developing this system?\",\"category\":\"constraints\"},{\"id\":\"Q9\",\"field\":\"success_metrics\",\"question\":\"What key performance indicators (KPIs) will you use to measure the success of this project?\",\"category\":\"success_metrics\"}]}"
+      },
+      {
+        "ID": "T-API-12",
+        "Desc": "Wrong round",
+        "Expected": "Error message contains expected round, not None",
+        "Actual": 400,
+        "PASS": "PASS",
+        "Evidence": "{\"detail\":\"Expected answers for round 1.\"}"
+      },
+      {
+        "ID": "T-API-14",
+        "Desc": "Generate before answers",
+        "Expected": "400",
+        "Actual": 422,
+        "PASS": "FAIL",
+        "Evidence": "{\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\"],\"msg\":\"Field required\",\"input\":null}]}"
+      },
+      {
+        "ID": "T-API-15",
+        "Desc": "Download before generate",
+        "Expected": "404 or 400",
+        "Actual": 404,
+        "PASS": "PASS",
+        "Evidence": "{\"detail\":\"Document has not been generated yet.\"}"
+      },
+      {
+        "ID": "T-API-16",
+        "Desc": "Unknown session ID",
+        "Expected": "404",
+        "Actual": 404,
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-17a",
+        "Desc": "Start Happy Path",
+        "Expected": "200",
+        "Actual": 200,
+        "PASS": "PASS",
+        "Evidence": "Session ID: 8571d820-53d9-42f7-aec1-af912c91be97"
+      },
+      {
+        "ID": "T-API-17b",
+        "Desc": "Happy Path Generating",
+        "Expected": "Completed",
+        "Actual": "Timeout",
+        "PASS": "FAIL",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-401-answer-Nokey",
+        "Desc": "401 on answer with No key",
+        "Expected": "401",
+        "Actual": "401",
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-401-answer-Wrongkey",
+        "Desc": "401 on answer with Wrong key",
+        "Expected": "401",
+        "Actual": "401",
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-401-answer-Malformedheader",
+        "Desc": "401 on answer with Malformed header",
+        "Expected": "401",
+        "Actual": "401",
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-401-generate-Nokey",
+        "Desc": "401 on generate with No key",
+        "Expected": "401",
+        "Actual": "401",
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-401-generate-Wrongkey",
+        "Desc": "401 on generate with Wrong key",
+        "Expected": "401",
+        "Actual": "401",
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-401-generate-Malformedheader",
+        "Desc": "401 on generate with Malformed header",
+        "Expected": "401",
+        "Actual": "401",
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-401-download-Nokey",
+        "Desc": "401 on download with No key",
+        "Expected": "401",
+        "Actual": "401",
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-401-download-Wrongkey",
+        "Desc": "401 on download with Wrong key",
+        "Expected": "401",
+        "Actual": "401",
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-401-download-Malformedheader",
+        "Desc": "401 on download with Malformed header",
+        "Expected": "401",
+        "Actual": "401",
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-20a",
+        "Desc": "/start with whitespace",
+        "Expected": "400",
+        "Actual": "400",
+        "PASS": "PASS",
+        "Evidence": "{\"detail\":\"Problem statement is too vague. Please provide at least 2-3 sentences with business objective and primary users.\"}"
+      },
+      {
+        "ID": "T-API-20b",
+        "Desc": "/start with unicode/emoji",
+        "Expected": "200",
+        "Actual": "200",
+        "PASS": "PASS",
+        "Evidence": "{\"session_id\":\"81c62df0-d068-41bc-a1b7-ba200bca3274\",\"status\":\"asking_questions\",\"next_action\":\"answer_questions\",\"questions\":[{\"id\":\"Q1\",\"field\":\"cur"
+      },
+      {
+        "ID": "T-API-21a",
+        "Desc": "Empty string answer",
+        "Expected": "4xx",
+        "Actual": "422",
+        "PASS": "PASS",
+        "Evidence": "{\"detail\":[{\"type\":\"string_too_short\",\"loc\":[\"body\",\"answers\",0,\"answer\"],\"msg\":\"String should have at least 1 character\",\"input\":\"\",\"ctx\":{\"min_lengt"
+      },
+      {
+        "ID": "T-API-21b",
+        "Desc": "Missing answers",
+        "Expected": "400",
+        "Actual": "400",
+        "PASS": "PASS",
+        "Evidence": "{\"detail\":\"All current-round questions must be answered before proceeding.\"}"
+      },
+      {
+        "ID": "T-API-21c",
+        "Desc": "Wrong round message does not say None",
+        "Expected": "No None string",
+        "Actual": "400",
+        "PASS": "PASS",
+        "Evidence": "{\"detail\":\"Expected answers for round 1.\"}"
+      },
+      {
+        "ID": "T-API-28",
+        "Desc": "Wrong question IDs",
+        "Expected": "400",
+        "Actual": "400",
+        "PASS": "PASS",
+        "Evidence": "{\"detail\":\"All current-round questions must be answered before proceeding.\"}"
+      },
+      {
+        "ID": "T-API-24",
+        "Desc": "Three parallel sessions",
+        "Expected": "Isolated (3 unique)",
+        "Actual": "Unique sessions: 3",
+        "PASS": "PASS",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-18",
+        "Desc": "Double-start sessions",
+        "Expected": "1 distinct session (Idempotent)",
+        "Actual": "['d5deb0ce-3f63-4d98-8354-c9a07c13259f', 'a64139a9-3fba-4e2b-88a8-c5426c51e8ae']",
+        "PASS": "FAIL",
+        "Evidence": ""
+      },
+      {
+        "ID": "T-API-25",
+        "Desc": "Restart the backend and verify persistence",
+        "Expected": "200 OK after restart",
+        "Actual": "200",
+        "PASS": "PASS",
+        "Evidence": "{\"session_id\":\"807c8faf-1a69-47b2-9768-af0fd00ce61c\",\"problem_statement\":\"Testing backend persistence with a random statement that has enough words gu"
+      },
+      {
+        "ID": "T-API-26",
+        "Desc": "Startup refusal without a key",
+        "Expected": "Error raised CODE-LEVEL",
+        "Actual": "Return Code: 1",
+        "PASS": "PASS",
+        "Evidence": "meError: API_KEY environment variable is required. App cannot process requests without API_KEY set. "
+      },
+      {
+        "ID": "T-API-17b",
+        "Desc": "Happy Path Generating",
+        "Expected": "Completed",
+        "Actual": "200",
+        "PASS": "PASS",
+        "Evidence": ""
+      }
+    ]
+  }
+}

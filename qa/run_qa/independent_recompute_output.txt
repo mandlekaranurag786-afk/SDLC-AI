@@ -1,0 +1,35 @@
+== Epics Analysis ==
+Recorded Total Story Points: 83
+Recorded Sprints in Epics: 6
+Count of User Stories identified: 36
+Calculated Velocity: 13.8 per sprint
+
+== Estimation Analysis ==
+Sprint count from Sprint Table: 5
+Sprint count from Phase Summary: 6
+Total weeks from text: 16
+Epics and Estimation agree on sprints: YES
+
+-- Cost Computations --
+Role: Senior Backend Developer (count 1, days 80) | Off: $900-1200 | On: $1800-2500
+Role: Frontend Developer (count 1, days 80) | Off: $400-600 | On: $800-1200
+Role: QA Engineer (count 1, days 80) | Off: $400-700 | On: $800-1200
+Role: Project Manager (count 1, days 80) | Off: $500-800 | On: $1000-1500
+Role: Business Analyst (count 1, days 80) | Off: $500-750 | On: $1000-1500
+Role: AI/ML Engineer (count 1, days 80) | Off: $900-1200 | On: $1800-25004
+
+-- Totals Validation (Rate: 85) --
+Calculated Offshore Min: $288000 * 85 = INR 24,480,000
+Documented Offshore Min: INR 24,480,000
+Calculated Offshore Max: $420000 * 85 = INR 35,700,000
+Documented Offshore Max: INR 35,700,000
+
+Calculated Onshore Min: $576000 * 85 = INR 48,960,000
+Documented Onshore Min: INR 48,960,000
+Calculated Onshore Max: $2632320 * 85 = INR 223,747,200
+Documented Onshore Max: INR 70,720,000
+
+Calculated Blended Min: INR 36,720,000
+Documented Blended Min: INR 36,720,000
+Calculated Blended Max: INR 129,723,600
+Documented Blended Max: INR 53,210,000

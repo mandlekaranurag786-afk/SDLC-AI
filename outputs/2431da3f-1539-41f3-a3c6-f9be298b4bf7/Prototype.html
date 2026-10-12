@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe Prototype</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F9FAFB;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #1F3864;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            background-color: #2563EB;
+        }
+        .nav a {
+            color: white;
+            padding: 15px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .nav a:hover {
+            background-color: #1F3864;
+        }
+        .container {
+            padding: 20px;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #111827;
+        }
+        .form-group input, .form-group button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            border: 1px solid #E5E7EB;
+            padding: 10px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #F1F5F9;
+        }
+        .button {
+            background-color: #2563EB;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #1F3864;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        SDLC AI - Auto-Generated Prototype Wireframe | For demonstration purposes only
+    </div>
+    <div class="nav">
+        <a href="#digital-identity-verification" onclick="showScreen('digital-identity-verification')">Digital Identity Verification</a>
+        <a href="#automated-document-extraction" onclick="showScreen('automated-document-extraction')">Automated Document Extraction/OCR</a>
+        <a href="#kyc-aml-checks" onclick="showScreen('kyc-aml-checks')">Real-time KYC/AML Sanction Checks</a>
+        <a href="#self-service-portal" onclick="showScreen('self-service-portal')">Self-service Customer Portal</a>
+        <a href="#admin-dashboard" onclick="showScreen('admin-dashboard')">Admin Dashboard</a>
+    </div>
+    <div class="container">
+        <div id="digital-identity-verification" class="card">
+            <h2>Digital Identity Verification</h2>
+            <form>
+                <div class="form-group">
+                    <label for="customer-name">Customer Name</label>
+                    <input type="text" id="customer-name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="customer-address">Customer Address</label>
+                    <input type="text" id="customer-address" placeholder="Enter your address">
+                </div>
+                <div class="form-group">
+                    <label for="date-of-birth">Date of Birth</label>
+                    <input type="date" id="date-of-birth">
+                </div>
+                <button type="submit" class="button">Submit</button>
+            </form>
+        </div>
+        
+        <div id="automated-document-extraction" class="card" style="display:none;">
+            <h2>Automated Document Extraction/OCR</h2>
+            <form>
+                <div class="form-group">
+                    <label for="upload-documents">Upload Documents</label>
+                    <input type="file" id="upload-documents" multiple>
+                </div>
+                <button type="submit" class="button">Upload</button>
+            </form>
+        </div>
+
+        <div id="kyc-aml-checks" class="card" style="display:none;">
+            <h2>Real-time KYC/AML Sanction Checks</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sanction Check Results</th>
+                        <th>Verified Customer Information</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pass</td>
+                        <td>John Doe</td>
+                        <td>Verified</td>
+                        <td><button class="button">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>Fail</td>
+                        <td>Jane Smith</td>
+                        <td>Pending</td>
+                        <td><button class="button">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="self-service-portal" class="card" style="display:none;">
+            <h2>Self-service Customer Portal</h2>
+            <form>
+                <div class="form-group">
+                    <label for="login-credentials">Customer Login Credentials</label>
+                    <input type="text" id="login-credentials" placeholder="Enter your credentials">
+                </div>
+                <button type="submit" class="button">Upload</button>
+            </form>
+        </div>
+
+        <div id="admin-dashboard" class="card" style="display:none;">
+            <h2>Admin Dashboard for Compliance Officers</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Onboarding Metrics</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Application 1</td>
+                        <td>In Review</td>
+                        <td><button class="button">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>Application 2</td>
+                        <td>Approved</td>
+                        <td><button class="button">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function showScreen(screenId) {
+            const screens = ['digital-identity-verification', 'automated-document-extraction', 'kyc-aml-checks', 'self-service-portal', 'admin-dashboard'];
+            screens.forEach(screen => {
+                document.getElementById(screen).style.display = (screen === screenId) ? 'block' : 'none';
+            });
+        }
+        // Show the first screen by default
+        showScreen('digital-identity-verification');
+    </script>
+</body>
+</html>

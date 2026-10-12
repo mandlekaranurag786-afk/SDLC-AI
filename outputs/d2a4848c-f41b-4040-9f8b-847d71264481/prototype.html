@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDLC AI - Auto-Generated Prototype Wireframe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F9FAFB;
+        }
+        .banner {
+            background-color: #1F3864;
+            color: #FFFFFF;
+            padding: 10px;
+            text-align: center;
+        }
+        .nav-bar {
+            background-color: #1F3864;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .nav-bar a {
+            color: #FFFFFF;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        .nav-bar a:hover {
+            color: #2563EB;
+        }
+        .screen {
+            display: none;
+            padding: 20px;
+        }
+        .screen.active {
+            display: block;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table th, .table td {
+            border: 1px solid #E5E7EB;
+            padding: 10px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #1F3864;
+            color: #FFFFFF;
+        }
+        .form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form label {
+            margin-bottom: 10px;
+        }
+        .form input {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #E5E7EB;
+        }
+        .button {
+            background-color: #1F3864;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #2563EB;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        SDLC AI - Auto-Generated Prototype Wireframe | For demonstration purposes only
+    </div>
+    <div class="nav-bar">
+        <a href="#" onclick="showScreen('login')">Login</a>
+        <a href="#" onclick="showScreen('dashboard')">Dashboard</a>
+        <a href="#" onclick="showScreen('documents')">Documents</a>
+        <a href="#" onclick="showScreen('upload')">Upload</a>
+        <a href="#" onclick="showScreen('export')">Export</a>
+        <a href="#" onclick="showScreen('settings')">Settings</a>
+    </div>
+    <div class="screen active" id="login">
+        <h1>Login</h1>
+        <form class="form">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+            <button class="button">Login</button>
+        </form>
+    </div>
+    <div class="screen" id="dashboard">
+        <h1>Dashboard</h1>
+        <table class="table">
+            <tr>
+                <th>Document Name</th>
+                <th>Document Type</th>
+                <th>Upload Date</th>
+            </tr>
+            <tr>
+                <td>Document 1</td>
+                <td>PDF</td>
+                <td>2022-01-01</td>
+            </tr>
+            <tr>
+                <td>Document 2</td>
+                <td>DOCX</td>
+                <td>2022-01-15</td>
+            </tr>
+        </table>
+    </div>
+    <div class="screen" id="documents">
+        <h1>Documents</h1>
+        <table class="table">
+            <tr>
+                <th>Document Name</th>
+                <th>Document Type</th>
+                <th>Upload Date</th>
+            </tr>
+            <tr>
+                <td>Document 1</td>
+                <td>PDF</td>
+                <td>2022-01-01</td>
+            </tr>
+            <tr>
+                <td>Document 2</td>
+                <td>DOCX</td>
+                <td>2022-01-15</td>
+            </tr>
+        </table>
+    </div>
+    <div class="screen" id="upload">
+        <h1>Upload Document</h1>
+        <form class="form">
+            <label for="document">Select Document</label>
+            <input type="file" id="document" name="document">
+            <button class="button">Upload</button>
+        </form>
+    </div>
+    <div class="screen" id="export">
+        <h1>Export Documents</h1>
+        <form class="form">
+            <label for="format">Select Format</label>
+            <select id="format" name="format">
+                <option value="excel">Excel</option>
+                <option value="csv">CSV</option>
+                <option value="json">JSON</option>
+            </select>
+            <button class="button">Export</button>
+        </form>
+    </div>
+    <div class="screen" id="settings">
+        <h1>Settings</h1>
+        <form class="form">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+            <button class="button">Save</button>
+        </form>
+    </div>
+    <script>
+        function showScreen(screenId) {
+            var screens = document.getElementsByClassName('screen');
+            for (var i = 0; i < screens.length; i++) {
+                screens[i].classList.remove('active');
+            }
+            document.getElementById(screenId).classList.add('active');
+        }
+    </script>
+</body>
+</html>

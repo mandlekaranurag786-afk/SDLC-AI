@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding System Wireframe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F9FAFB;
+            color: #111827;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #1F3864;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            background-color: #2563EB;
+        }
+        .nav a {
+            color: white;
+            padding: 15px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .nav a:hover {
+            background-color: #1F3864;
+        }
+        .container {
+            padding: 20px;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #E5E7EB;
+            border-radius: 4px;
+        }
+        .button {
+            background-color: #2563EB;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #1F3864;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #E5E7EB;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #F1F5F9;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        SDLC AI - Auto-Generated Prototype Wireframe | For demonstration purposes only
+    </div>
+    <div class="nav">
+        <a href="#onboarding-checklist" onclick="showScreen('onboarding-checklist')">Automated Onboarding Task Checklist Assignment</a>
+        <a href="#onboarding-dashboard" onclick="showScreen('onboarding-dashboard')">Onboarding Dashboard for New Employees</a>
+        <a href="#live-dashboard" onclick="showScreen('live-dashboard')">Live Dashboard for Delivery Heads</a>
+        <a href="#reminders" onclick="showScreen('reminders')">Automated Reminders for Incomplete Tasks</a>
+    </div>
+    <div class="container">
+        <div id="onboarding-checklist" class="card">
+            <h2>Automated Onboarding Task Checklist Assignment</h2>
+            <div class="form-group">
+                <label for="new-joiner-name">New Joiner Name:</label>
+                <input type="text" id="new-joiner-name" placeholder="Enter new joiner name">
+            </div>
+            <button class="button">Assign</button>
+        </div>
+        <div id="onboarding-dashboard" class="card" style="display:none;">
+            <h2>Onboarding Dashboard for New Employees</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Onboarding Progress</th>
+                        <th>New Hire Profile</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>50%</td>
+                        <td>John Doe</td>
+                        <td>In Progress</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="live-dashboard" class="card" style="display:none;">
+            <h2>Live Dashboard for Delivery Heads</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Live Onboarding Completion Percentage</th>
+                        <th>Onboarding Task Completion</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>75%</td>
+                        <td>3 out of 4 tasks completed</td>
+                        <td>On Track</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="reminders" class="card" style="display:none;">
+            <h2>Automated Reminders for Incomplete Tasks</h2>
+            <div class="form-group">
+                <label for="incomplete-tasks">List of Incomplete Tasks:</label>
+                <input type="text" id="incomplete-tasks" placeholder="Enter incomplete tasks">
+            </div>
+            <button class="button">Schedule</button>
+        </div>
+    </div>
+    <script>
+        function showScreen(screenId) {
+            var screens = ['onboarding-checklist', 'onboarding-dashboard', 'live-dashboard', 'reminders'];
+            screens.forEach(function(screen) {
+                document.getElementById(screen).style.display = 'none';
+            });
+            document.getElementById(screenId).style.display = 'block';
+        }
+        // Show the first screen by default
+        showScreen('onboarding-checklist');
+    </script>
+</body>
+</html>

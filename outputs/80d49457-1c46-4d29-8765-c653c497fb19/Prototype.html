@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe Prototype</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F9FAFB;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #1F3864;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            background-color: #2563EB;
+        }
+        .nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .nav a:hover {
+            background-color: #1F3864;
+        }
+        .container {
+            padding: 20px;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #111827;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+        }
+        .btn {
+            background-color: #2563EB;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #1F3864;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        SDLC AI - Auto-Generated Prototype Wireframe | For demonstration purposes only
+    </div>
+    <div class="nav">
+        <a href="#home" onclick="showScreen('home')">Home</a>
+        <a href="#human-loop" onclick="showScreen('human-loop')">Implement Human-in-the-Loop</a>
+        <a href="#schedule-onboarding" onclick="showScreen('schedule-onboarding')">Schedule Onboarding Meetings</a>
+    </div>
+    <div class="container">
+        <div id="home" class="screen">
+            <div class="card">
+                <h2>Welcome to the IT Asset Management System</h2>
+                <p>Select an option from the navigation bar to get started.</p>
+            </div>
+        </div>
+        <div id="human-loop" class="screen hidden">
+            <div class="card">
+                <h2>Implement Human-in-the-Loop Decision Point</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="asset-request">Asset Allocation Request Details:</label>
+                        <input type="text" id="asset-request" placeholder="Enter request details">
+                    </div>
+                    <button type="button" class="btn" onclick="submitForm('human-loop')">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div id="schedule-onboarding" class="screen hidden">
+            <div class="card">
+                <h2>Schedule Onboarding Meetings Automatically</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="availability">Availability of Stakeholders and New Employee:</label>
+                        <input type="text" id="availability" placeholder="Enter availability details">
+                    </div>
+                    <button type="button" class="btn" onclick="submitForm('schedule-onboarding')">Schedule</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showScreen(screenId) {
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => {
+                screen.classList.add('hidden');
+            });
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        function submitForm(screenId) {
+            alert('Form submitted for ' + screenId);
+        }
+
+        // Show the home screen by default
+        showScreen('home');
+    </script>
+</body>
+</html>

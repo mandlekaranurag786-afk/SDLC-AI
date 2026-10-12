@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding Portal Wireframe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F9FAFB;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1F3864;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #2563EB;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            padding: 20px;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #111827;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #111827;
+        }
+        input[type="text"], input[type="file"], input[type="submit"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #E5E7EB;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #F3F4F6;
+        }
+        .button {
+            background-color: #2563EB;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #1F3864;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        SDLC AI - Auto-Generated Prototype Wireframe | For demonstration purposes only
+    </header>
+    <nav>
+        <a href="#" onclick="showScreen('upload')">Document Upload</a>
+        <a href="#" onclick="showScreen('repository')">Document Repository</a>
+        <a href="#" onclick="showScreen('reporting')">Reporting Dashboard</a>
+        <a href="#" onclick="showScreen('search')">Search and Filter</a>
+    </nav>
+    <div class="container">
+        <div id="upload" class="card">
+            <h2>Document Upload and E-Signature Support</h2>
+            <form>
+                <label for="document">Upload Document:</label>
+                <input type="file" id="document" name="document" accept=".pdf,.docx">
+                <label for="signature">E-Signature:</label>
+                <input type="text" id="signature" name="signature" placeholder="Enter your signature">
+                <input type="submit" value="Upload" class="button">
+            </form>
+        </div>
+        <div id="repository" class="card" style="display:none;">
+            <h2>Document Repository</h2>
+            <form>
+                <label for="search">Search Documents:</label>
+                <input type="text" id="search" name="search" placeholder="Enter search criteria">
+                <input type="submit" value="Search" class="button">
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Document Name</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Employee Handbook</td>
+                        <td>Available</td>
+                        <td><button class="button">View</button> <button class="button">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="reporting" class="card" style="display:none;">
+            <h2>Reporting and Analytics Dashboards</h2>
+            <form>
+                <label for="dateRange">Select Date Range:</label>
+                <input type="text" id="dateRange" name="dateRange" placeholder="MM/DD/YYYY - MM/DD/YYYY">
+                <input type="submit" value="Export" class="button">
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Onboarding Completion Rate</td>
+                        <td>85%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="search" class="card" style="display:none;">
+            <h2>Search and Filter Capabilities</h2>
+            <form>
+                <label for="filter">Filter Criteria:</label>
+                <input type="text" id="filter" name="filter" placeholder="Enter filter criteria">
+                <input type="submit" value="Submit" class="button">
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Result</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Task 1</td>
+                        <td>Pending</td>
+                        <td><button class="button">View</button> <button class="button">Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function showScreen(screenId) {
+            const screens = ['upload', 'repository', 'reporting', 'search'];
+            screens.forEach(screen => {
+                document.getElementById(screen).style.display = (screen === screenId) ? 'block' : 'none';
+            });
+        }
+        // Show the upload screen by default
+        showScreen('upload');
+    </script>
+</body>
+</html>

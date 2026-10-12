@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDLC AI - Auto-Generated Prototype Wireframe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F9FAFB;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #1F3864;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .nav {
+            background-color: #2563EB;
+            padding: 10px;
+        }
+        .nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            padding: 20px;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #111827;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #E5E7EB;
+            border-radius: 4px;
+        }
+        .button {
+            background-color: #2563EB;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            border: 1px solid #E5E7EB;
+            padding: 10px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #F1F5F9;
+        }
+        .widget {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        SDLC AI - Auto-Generated Prototype Wireframe | For demonstration purposes only
+    </div>
+    <div class="nav">
+        <a href="#automated-scheduling" onclick="showScreen('automated-scheduling')">Automated Interview Scheduling</a>
+        <a href="#associate-matching" onclick="showScreen('associate-matching')">Associate Matching</a>
+        <a href="#feedback-collection" onclick="showScreen('feedback-collection')">Feedback Collection</a>
+        <a href="#interview-tracking" onclick="showScreen('interview-tracking')">Interview Outcome Tracking</a>
+        <a href="#metrics-dashboard" onclick="showScreen('metrics-dashboard')">Interview Metrics Dashboard</a>
+    </div>
+    <div class="container">
+        <div id="automated-scheduling" class="card screen">
+            <h2>Automated Interview Scheduling</h2>
+            <div class="form-group">
+                <label for="associate-availability">Associate Availability</label>
+                <input type="text" id="associate-availability" placeholder="Enter availability...">
+            </div>
+            <div class="form-group">
+                <label for="client-job-description">Client Job Description</label>
+                <input type="text" id="client-job-description" placeholder="Enter job description...">
+            </div>
+            <div class="form-group">
+                <label for="interview-time-slots">Interview Time Slots</label>
+                <input type="text" id="interview-time-slots" placeholder="Enter time slots...">
+            </div>
+            <button class="button">Schedule</button>
+        </div>
+        <div id="associate-matching" class="card screen" style="display:none;">
+            <h2>Associate Matching to Job Descriptions</h2>
+            <div class="form-group">
+                <label for="job-description-details">Job Description Details</label>
+                <input type="text" id="job-description-details" placeholder="Enter job description...">
+            </div>
+            <div class="form-group">
+                <label for="associate-profiles">Associate Profiles</label>
+                <input type="text" id="associate-profiles" placeholder="Enter associate profiles...">
+            </div>
+            <button class="button">Generate</button>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Matched Associates</th>
+                        <th>Job Description Details</th>
+                        <th>Associate Profiles</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>Software Engineer</td>
+                        <td>Profile A</td>
+                        <td>Matched</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="feedback-collection" class="card screen" style="display:none;">
+            <h2>Feedback Collection from Clients</h2>
+            <div class="form-group">
+                <label for="feedback-responses">Feedback Form Responses</label>
+                <input type="text" id="feedback-responses" placeholder="Enter feedback...">
+            </div>
+            <button class="button">Submit</button>
+        </div>
+        <div id="interview-tracking" class="card screen" style="display:none;">
+            <h2>Interview Outcome Tracking</h2>
+            <div class="form-group">
+                <label for="interview-feedback">Interview Feedback and Outcome Data</label>
+                <input type="text" id="interview-feedback" placeholder="Enter feedback...">
+            </div>
+            <button class="button">Submit</button>
+        </div>
+        <div id="metrics-dashboard" class="card screen" style="display:none;">
+            <h2>Interview Metrics Dashboard</h2>
+            <div class="widget">
+                <h3>Visual Dashboard Displaying Metrics</h3>
+                <p>Metrics will be displayed here.</p>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Interview and Outcome</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Interview 1</td>
+                        <td>Completed</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function showScreen(screenId) {
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => {
+                screen.style.display = 'none';
+            });
+            document.getElementById(screenId).style.display = 'block';
+        }
+        // Show the first screen by default
+        showScreen('automated-scheduling');
+    </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding System Wireframe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F9FAFB;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1F3864;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #2563EB;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            padding: 20px;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #111827;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #E5E7EB;
+            border-radius: 4px;
+        }
+        .button {
+            background-color: #2563EB;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            border: 1px solid #E5E7EB;
+            padding: 10px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #F1F5F9;
+        }
+        .widget {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        SDLC AI - Auto-Generated Prototype Wireframe | For demonstration purposes only
+    </header>
+    <nav>
+        <a href="#" onclick="showScreen('home')">Home</a>
+        <a href="#" onclick="showScreen('meetingScheduling')">Meeting Scheduling</a>
+        <a href="#" onclick="showScreen('documentUpload')">Document Upload</a>
+        <a href="#" onclick="showScreen('hrDashboard')">HR Dashboard</a>
+    </nav>
+    <div class="container">
+        <div id="home" class="screen">
+            <div class="card">
+                <h2>Candidate-Facing Self-Service Portal</h2>
+                <div class="form-group">
+                    <label for="login">Employee Login Credentials</label>
+                    <input type="text" id="login" placeholder="Enter your credentials">
+                </div>
+                <button class="button">Upload</button>
+            </div>
+            <div class="widget">
+                <h3>Onboarding Status Dashboard</h3>
+                <p>View your onboarding status and tasks.</p>
+            </div>
+        </div>
+        <div id="meetingScheduling" class="screen" style="display:none;">
+            <div class="card">
+                <h2>Meeting Scheduling with Calendar Availability Visibility</h2>
+                <div class="form-group">
+                    <label for="meetingDetails">Meeting Details (Date, Time, Participants)</label>
+                    <input type="text" id="meetingDetails" placeholder="Enter meeting details">
+                </div>
+                <button class="button">Schedule</button>
+            </div>
+        </div>
+        <div id="documentUpload" class="screen" style="display:none;">
+            <div class="card">
+                <h2>Document Upload and E-Signature Tracking</h2>
+                <div class="form-group">
+                    <label for="documentFiles">Document Files</label>
+                    <input type="file" id="documentFiles" multiple>
+                </div>
+                <div class="form-group">
+                    <label for="esignatureRequests">E-Signature Requests</label>
+                    <input type="text" id="esignatureRequests" placeholder="Enter e-signature requests">
+                </div>
+                <button class="button">Upload</button>
+            </div>
+        </div>
+        <div id="hrDashboard" class="screen" style="display:none;">
+            <div class="card">
+                <h2>Real-Time HR Dashboard</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Onboarding Metrics</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>New Employees</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>Documents Pending</td>
+                            <td>2</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="button">Continue</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showScreen(screenId) {
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => {
+                screen.style.display = 'none';
+            });
+            document.getElementById(screenId).style.display = 'block';
+        }
+        // Default to show the home screen
+        showScreen('home');
+    </script>
+</body>
+</html>

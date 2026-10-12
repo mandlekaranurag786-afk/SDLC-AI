@@ -5,16 +5,76 @@ SDLC DOCUMENT GENERATION SCOREBOARD
 Category            Input Items   FR Covered   Story Covered   BRD Covered
 --------------------------------------------------------------------------------
 Features                     10           10               9             -
-Workflow Steps               21           20              18             -
+Workflow Steps               21           21              18             -
 Integrations                  8            8               7             -
 Constraints                   6            -               -             6
 Metrics                      10            -               -             7
-Total                        55           38              34            13
+Total                        55           39              34            13
 --------------------------------------------------------------------------------
 Metrics missing from Project Objectives or Success Criteria:
   * Percentage of onboarding tasks automated (missing in: Project Objectives)
   * Number of onboarding issues/escalations (missing in: Project Objectives, Success Criteria)
   * Overall onboarding completion rate (missing in: Success Criteria)
+--------------------------------------------------------------------------------
+Detailed FR Coverage (Features & Integrations - Matched on Title/Desc):
+
+[Features]
+  * Input:    Automated onboarding checklist and task assignment
+    Matched:  FR-001 - Automated Onboarding Checklist and Task Assignment
+    Rule:     Exact substring in FR Title/Description
+  * Input:    Automated reminders and notifications
+    Matched:  FR-002 - Automated Reminders and Notifications
+    Rule:     Exact substring in FR Title/Description
+  * Input:    Document upload, verification, and e-signature
+    Matched:  FR-003 - Document Upload, Verification, and E-Signature
+    Rule:     Exact substring in FR Title/Description
+  * Input:    Employee onboarding status tracking
+    Matched:  FR-004 - Employee Onboarding Status Tracking
+    Rule:     Exact substring in FR Title/Description
+  * Input:    Automated IT asset and access requests
+    Matched:  FR-005 - Automated IT Asset and Access Requests
+    Rule:     Exact substring in FR Title/Description
+  * Input:    Meeting scheduling and calendar integration
+    Matched:  FR-006 - Meeting Scheduling and Calendar Integration
+    Rule:     Exact substring in FR Title/Description
+  * Input:    AI-powered onboarding assistant for employee queries
+    Matched:  FR-007 - AI-Powered Onboarding Assistant for Employee Queries
+    Rule:     Exact substring in FR Title/Description
+  * Input:    SLA tracking and escalation
+    Matched:  FR-008 - SLA Tracking and Escalation
+    Rule:     Exact substring in FR Title/Description
+  * Input:    Onboarding analytics and reports
+    Matched:  FR-009 - Onboarding Analytics and Reports
+    Rule:     Exact substring in FR Title/Description
+  * Input:    Complete activity and audit history
+    Matched:  FR-010 - Complete Activity and Audit History
+    Rule:     Exact substring in FR Title/Description
+
+[Integrations]
+  * Input:    HRMS / Employee Management System
+    Matched:  FR-011 - HRMS Integration
+    Rule:     Keyword stem overlap (75%) on FR Title/Description
+  * Input:    Microsoft Outlook / Google Calendar
+    Matched:  FR-012 - Microsoft Outlook / Google Calendar Integration
+    Rule:     Exact substring in FR Title/Description
+  * Input:    Email / Microsoft Teams / Slack
+    Matched:  FR-013 - Email / Microsoft Teams / Slack Integration
+    Rule:     Exact substring in FR Title/Description
+  * Input:    IT Service Management system
+    Matched:  FR-014 - IT Service Management System Integration
+    Rule:     Exact substring in FR Title/Description
+  * Input:    Identity and Access Management (IAM)
+    Matched:  FR-015 - Identity and Access Management (IAM) Integration
+    Rule:     Exact substring in FR Title/Description
+  * Input:    Document storage such as SharePoint/OneDrive
+    Matched:  FR-016 - Document Storage Integration
+    Rule:     Keyword stem overlap (80%) on FR Title/Description
+  * Input:    E-signature platform
+    Matched:  FR-017 - E-Signature Platform Integration
+    Rule:     Exact substring in FR Title/Description
+  * Input:    Asset Management system
+    Matched:  FR-018 - Asset Management System Integration
+    Rule:     Exact substring in FR Title/Description
 --------------------------------------------------------------------------------
 (b) Duplicate Story IDs:                    0
 (c) Stories without FR ID:                  23 / 23 stories parsed

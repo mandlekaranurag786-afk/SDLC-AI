@@ -211,6 +211,76 @@ def extract_section_content_by_keyword(text: str, keyword: str) -> str:
     return "\n".join(section_lines).strip()
 
 
+def parse_fr_blocks(frd_text: str) -> list[dict[str, Any]]:
+    """Parse FR blocks from FRD text, extracting ID, Title, Description, and Title+Description match text."""
+    matches = list(re.finditer(r"(?m)^(?:#{1,3}\s+)?(FR-\d+)\s*:\s*(.+)$", frd_text, re.IGNORECASE))
+    parsed_frs = []
+    for idx, match in enumerate(matches):
+        start = match.start()
+        end = matches[idx + 1].start() if idx + 1 < len(matches) else len(frd_text)
+        block = frd_text[start:end]
+        fr_id = match.group(1).upper()
+        raw_header_title = match.group(2).strip()
+        clean_header_title = re.sub(r"^\*+|\*+$", "", raw_header_title).strip()
+
+        # Check for explicit Title line
+        title_m = re.search(r"(?m)^\s*(?:\*\*)?Title(?:\*\*)?:\s*(.+)$", block, re.IGNORECASE)
+        fr_title = title_m.group(1).strip() if title_m else clean_header_title
+        fr_title = re.sub(r"^\*+|\*+$", "", fr_title).strip()
+
+        # Check for explicit Description line
+        desc_m = re.search(
+            r"(?m)^\s*(?:\*\*)?Description(?:\*\*)?:\s*([^\n]+(?:\n(?!\s*(?:\*\*)?[A-Za-z\s]+(?:\*\*)?:)[^\n]+)*)",
+            block,
+            re.IGNORECASE,
+        )
+        fr_desc = desc_m.group(1).strip() if desc_m else ""
+
+        match_text = f"{fr_title}\n{fr_desc}".strip()
+        parsed_frs.append({
+            "id": fr_id,
+            "title": fr_title,
+            "description": fr_desc,
+            "match_text": match_text,
+            "block": block,
+        })
+    return parsed_frs
+
+
+def match_item_against_frs(item: str, parsed_frs: list[dict[str, Any]]) -> tuple[dict[str, Any] | None, str]:
+    """Matches an input requirement item strictly against FR Title and Description.
+    Returns (matched_fr_dict, rule_explanation) or (None, 'No match').
+    """
+    cleaned_item = item.strip().lower()
+    best_fr = None
+    best_score = 0.0
+    best_rule = ""
+
+    for fr in parsed_frs:
+        # 1. Exact substring check in Title or Description
+        if len(cleaned_item) > 4 and (cleaned_item in fr["title"].lower() or cleaned_item in fr["description"].lower()):
+            return fr, "Exact substring in FR Title/Description"
+
+        # 2. Content word stem overlap in Title + Description
+        raw_words = re.findall(r"[A-Za-z0-9]+", item)
+        content_words = [w for w in raw_words if len(w) > 2 and w.lower() not in STOPWORDS]
+        if content_words:
+            stemmed_targets = [stem_word(w) for w in content_words]
+            text_words = [stem_word(w) for w in re.findall(r"[A-Za-z0-9]+", fr["match_text"])]
+            text_stems_set = set(text_words)
+            matched = sum(1 for st in stemmed_targets if st in text_stems_set)
+            ratio = matched / len(stemmed_targets)
+            if ratio >= 0.5 and ratio > best_score:
+                best_score = ratio
+                best_fr = fr
+                best_rule = f"Keyword stem overlap ({int(ratio * 100)}%) on FR Title/Description"
+
+    if best_fr:
+        return best_fr, best_rule
+
+    return None, "No match found in FR Title or Description"
+
+
 def score_documents(
     input_path: str | Path,
     brd_path: str | Path,
@@ -235,6 +305,7 @@ def score_documents(
 
     # Parse individual FR blocks from FRD
     fr_blocks = re.split(r"(?=(?:FR-\d+|##\s+FR-\d+))", frd_data["full_text"])
+    parsed_fr_blocks_list = parse_fr_blocks(frd_data["full_text"])
 
     # Parse individual Story blocks from Epics (Heading-based for accurate story definition)
     story_matches = list(
@@ -300,14 +371,35 @@ def score_documents(
     total_story = 0
     total_brd = 0
     missing_metrics_details: list[str] = []
+    coverage_matches: dict[str, list[dict[str, Any]]] = {"features": [], "integrations": []}
 
     for cat, items in categories.items():
         if cat in ["features", "workflow steps", "integrations"]:
             fr_cov = 0
             story_cov = 0
             for item in items:
-                if any(item_matches_text(item, block) for block in fr_blocks) or item_matches_text(item, frd_data["full_text"]):
-                    fr_cov += 1
+                if cat in ["features", "integrations"]:
+                    m_fr, rule = match_item_against_frs(item, parsed_fr_blocks_list)
+                    if m_fr:
+                        fr_cov += 1
+                        coverage_matches[cat].append({
+                            "item": item,
+                            "fr_id": m_fr["id"],
+                            "fr_title": m_fr["title"],
+                            "rule": rule,
+                        })
+                    else:
+                        coverage_matches[cat].append({
+                            "item": item,
+                            "fr_id": "NONE",
+                            "fr_title": "Unmatched",
+                            "rule": rule,
+                        })
+                else:
+                    m_fr, rule = match_item_against_frs(item, parsed_fr_blocks_list)
+                    if m_fr or any(item_matches_text(item, block) for block in fr_blocks) or item_matches_text(item, frd_data["full_text"]):
+                        fr_cov += 1
+
                 if any(item_matches_text(item, s["text"]) for s in parsed_stories) or item_matches_text(item, epics_data["full_text"]):
                     story_cov += 1
 
@@ -527,6 +619,7 @@ def score_documents(
         "banned_phrases_count": banned_phrase_count,
         "title_sanity_issues": title_sanity_issues,
         "missing_metrics_details": missing_metrics_details,
+        "coverage_matches": coverage_matches,
         "doc_hashes": doc_hashes,
         "titles": {name: title for name, title in docs_to_check},
     }
@@ -557,6 +650,18 @@ def format_scoreboard(scores: dict[str, Any]) -> str:
         lines.append("Metrics missing from Project Objectives or Success Criteria:")
         for m in scores["missing_metrics_details"]:
             lines.append(f"  * {m}")
+
+    if scores.get("coverage_matches"):
+        lines.append("-" * 80)
+        lines.append("Detailed FR Coverage (Features & Integrations - Matched on Title/Desc):")
+        for cat_name in ["features", "integrations"]:
+            m_list = scores["coverage_matches"].get(cat_name, [])
+            if m_list:
+                lines.append(f"\n[{cat_name.title()}]")
+                for m in m_list:
+                    lines.append(f"  * Input:    {m['item']}")
+                    lines.append(f"    Matched:  {m['fr_id']} - {m['fr_title']}")
+                    lines.append(f"    Rule:     {m['rule']}")
 
     total_stories = scores.get("total_stories_parsed", 0)
     stories_no_fr = scores.get("stories_without_fr", 0)
